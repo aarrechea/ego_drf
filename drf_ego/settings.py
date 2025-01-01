@@ -24,8 +24,8 @@ DEBUG = config("DEBUG")
 # Allowed hosts
 if DEBUG == True:
     ALLOWED_HOSTS = ["*"]
-else:
-    ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(',')])    
+else:            
+    ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(',')])    
 
 
 
