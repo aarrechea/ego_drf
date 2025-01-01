@@ -1,5 +1,5 @@
 # Imports
-import os
+import os, django_heroku
 from datetime import timedelta
 from decouple import Csv, config
 from pathlib import Path
@@ -158,7 +158,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 
 
@@ -248,3 +247,8 @@ MEDIA_ROOT = BASE_DIR / "uploads"
 
 # Cors
 CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS',  cast=Csv())
+
+
+
+# Django Heroku settings.
+django_heroku.settings(locals()) 
