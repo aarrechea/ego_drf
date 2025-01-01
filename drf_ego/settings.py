@@ -99,7 +99,7 @@ WSGI_APPLICATION = 'drf_ego.wsgi.application'
 
 
 # Database
-if DEBUG:
+if DEBUG == True:    
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -108,6 +108,17 @@ if DEBUG:
             'PASSWORD':'postgres',
             'HOST':'127.0.0.1',
             'PORT':'5432'
+        }
+    }
+else:    
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': config('DATABASE_NAME'),
+            'USER':config('DATABASE_USER'),
+            'PASSWORD':config('DATABASE_PASSWORD'),
+            'HOST':config('DATABASE_HOST'),
+            'PORT':config('DATABASE_PORT')
         }
     }
 
