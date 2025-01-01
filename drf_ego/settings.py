@@ -22,7 +22,10 @@ DEBUG = config("DEBUG")
 
 
 # Allowed hosts
-ALLOWED_HOSTS = []
+if DEBUG == True:
+    ALLOWED_HOSTS = ["*"]
+else:
+    ALLOWED_HOSTS = config("ALLOWED_HOSTS")
 
 
 
