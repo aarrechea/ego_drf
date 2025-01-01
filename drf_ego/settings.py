@@ -1,4 +1,5 @@
 # Imports
+import os
 from datetime import timedelta
 from decouple import config
 from pathlib import Path
@@ -225,6 +226,12 @@ SIMPLE_JWT = {
 # Media files
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "uploads"
+
+
+
+# Static
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 
