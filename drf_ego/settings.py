@@ -1,7 +1,7 @@
 # Imports
 import os
 from datetime import timedelta
-from decouple import config
+from decouple import Csv, config
 from pathlib import Path
 
 
@@ -25,7 +25,7 @@ DEBUG = config("DEBUG")
 if DEBUG == True:
     ALLOWED_HOSTS = ["*"]
 else:            
-    ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(',')])    
+    ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS",  cast=Csv())
 
 
 
@@ -113,7 +113,7 @@ if DEBUG == True:
             'PORT':'5432'
         }
     }
-else:    
+else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -250,4 +250,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 # Cors
-CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', cast=lambda v: [s.strip() for s in v.split(',')])
+CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS',  cast=Csv())
