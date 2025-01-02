@@ -57,14 +57,7 @@ class CarViewSet(AbstractViewSet):
                 return queryset
         except:                            
             return queryset
-    
-    
-        """ queryset = Purchase.objects.all()
-        username = self.request.query_params.get('username')
-        if username is not None:
-            queryset = queryset.filter(purchaser__username=username)
-        return queryset """
-    
+        
     
     def get_object(self):
         obj = Car.objects.get_object_by_id(self.kwargs["pk"])

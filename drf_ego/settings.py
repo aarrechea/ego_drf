@@ -100,10 +100,13 @@ TEMPLATES = [
 # WSGI
 WSGI_APPLICATION = 'drf_ego.wsgi.application'
 
-
+print(DEBUG)
 
 # Database
-if DEBUG == True:    
+if DEBUG == 'True':    
+    
+    print("Enter if")
+    
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -115,6 +118,9 @@ if DEBUG == True:
         }
     }
 else:
+    
+    print("Enter else")
+    
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',

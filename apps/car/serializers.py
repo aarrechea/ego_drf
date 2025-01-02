@@ -12,7 +12,10 @@ class CarSerializer(AbstractSerializer):
     feature = FeatureSerializer(read_only=True, many=True)
     
     
-    def create(self, validated_data):                        
+    def create(self, validated_data):
+        
+        print("\nEnter create serializer")
+        
         features = self.initial_data['features']
         locations = self.initial_data['locations']
                         
@@ -23,9 +26,14 @@ class CarSerializer(AbstractSerializer):
         for feature in features:            
             listInstances.append(Feature.objects.get(id=feature))
             
+            
+        print("\nBefore try - list instances: ", listInstances)
+            
         try:            
             with transaction.atomic():                
                 car = Car.objects.create(**validated_data)
+                
+                print("\nInside try - Car: ", car)
                 
                 for index, item in enumerate(listInstances):
                     car_feature = CarFeature(
@@ -34,6 +42,9 @@ class CarSerializer(AbstractSerializer):
                         location = locations[index]
                     )
                     array.append(car_feature)
+                
+                print("\nAfter for - car_feature: ", car_feature)
+                
                 
                 CarFeature.objects.bulk_create(array)
                 
