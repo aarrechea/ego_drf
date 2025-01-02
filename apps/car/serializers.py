@@ -12,10 +12,7 @@ class CarSerializer(AbstractSerializer):
     feature = FeatureSerializer(read_only=True, many=True)
     
     
-    def create(self, validated_data):
-        
-        print("\nEnter create serializer")
-        
+    def create(self, validated_data):        
         features = self.initial_data['features']
         locations = self.initial_data['locations']
                         
@@ -23,30 +20,26 @@ class CarSerializer(AbstractSerializer):
         array = []
         
         # Get the feature object from the front end data
-        for feature in features:            
-            listInstances.append(Feature.objects.get(id=feature))
-            
-            
-        print("\nBefore try - list instances: ", listInstances)
+        try:
+            for feature in features:            
+                listInstances.append(Feature.objects.get(id=feature))
+        except:
+            pass
             
         try:            
             with transaction.atomic():                
                 car = Car.objects.create(**validated_data)
                 
-                print("\nInside try - Car: ", car)
-                
-                for index, item in enumerate(listInstances):
-                    car_feature = CarFeature(
-                        car = car,
-                        feature = item,
-                        location = locations[index]
-                    )
-                    array.append(car_feature)
-                
-                print("\nAfter for - car_feature: ", car_feature)
-                
-                
-                CarFeature.objects.bulk_create(array)
+                if len(listInstances) > 0:
+                    for index, item in enumerate(listInstances):
+                        car_feature = CarFeature(
+                            car = car,
+                            feature = item,
+                            location = locations[index]
+                        )
+                        array.append(car_feature)
+                    
+                    CarFeature.objects.bulk_create(array)
                 
             return car
         

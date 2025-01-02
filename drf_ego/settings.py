@@ -22,7 +22,7 @@ DEBUG = config("DEBUG")
 
 
 # Allowed hosts
-if DEBUG == True:
+if DEBUG == 'True':
     ALLOWED_HOSTS = ["*"]
 else:            
     ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS",  cast=Csv())
@@ -100,13 +100,10 @@ TEMPLATES = [
 # WSGI
 WSGI_APPLICATION = 'drf_ego.wsgi.application'
 
-print(DEBUG)
+
 
 # Database
-if DEBUG == 'True':    
-    
-    print("Enter if")
-    
+if DEBUG == 'True':        
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -117,10 +114,7 @@ if DEBUG == 'True':
             'PORT':'5432'
         }
     }
-else:
-    
-    print("Enter else")
-    
+else:    
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
