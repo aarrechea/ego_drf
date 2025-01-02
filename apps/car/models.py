@@ -75,8 +75,8 @@ class Car(AbstractModel):
             
 # Linking many to many table    
 class CarFeature(models.Model):
-    car = models.ForeignKey(Car, on_delete=models.CASCADE)
-    feature = models.ForeignKey(Feature, on_delete=models.CASCADE)
-    location = models.IntegerField(choices=LOCATIONS, default=1) # location of the photo in the page
+    car = models.ForeignKey(Car, on_delete=models.CASCADE, blank=True, null=True)
+    feature = models.ForeignKey(Feature, on_delete=models.CASCADE, blank=True, null=True)
+    location = models.IntegerField(choices=LOCATIONS, default=1, blank=True, null=True) # location of the photo in the page
 
 
