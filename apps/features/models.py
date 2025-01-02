@@ -17,7 +17,7 @@ def feature_directory_path(instance, filename):
 # Feature model
 class Feature(AbstractModel):
     photo = models.ImageField(null=True, blank=True, upload_to=feature_directory_path)
-    designation = models.CharField(max_length=20, default='None')
+    designation = models.CharField(max_length=20, default='None', blank=True, null=True)
     title = models.CharField(max_length=70)        
     description = models.TextField(max_length=400)
     
