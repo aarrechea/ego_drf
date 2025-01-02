@@ -240,7 +240,7 @@ SIMPLE_JWT = {
 
 
 # Media files
-MEDIA_URL = "/media/"
+MEDIA_URL = "/uploads/"
 MEDIA_ROOT = BASE_DIR / "uploads"
 
 
