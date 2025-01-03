@@ -64,7 +64,7 @@ class Car(AbstractModel):
     type = models.IntegerField(choices=CAR_TYPE, default=1)
     price = models.DecimalField(default=0, max_digits=10, decimal_places=2)
     photo = models.ImageField(null=True, blank=True, upload_to=car_directory_path)
-    features = models.ManyToManyField(Feature, through='CarFeature', blank=True, null=True)
+    features = models.ManyToManyField(Feature, through='CarFeature')
     
     
     @property

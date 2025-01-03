@@ -17,12 +17,12 @@ SECRET_KEY = config("SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG")
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 
 
 # Allowed hosts
-if DEBUG == 'True':
+if DEBUG:
     ALLOWED_HOSTS = ["*"]
 else:            
     ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS",  cast=Csv())
@@ -52,6 +52,7 @@ THIRD_PARTY_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'drf_spectacular',
+    'storages',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
@@ -103,7 +104,7 @@ WSGI_APPLICATION = 'drf_ego.wsgi.application'
 
 
 # Database
-if DEBUG == 'True':        
+if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -114,7 +115,7 @@ if DEBUG == 'True':
             'PORT':'5432'
         }
     }
-else:    
+else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -239,12 +240,6 @@ SIMPLE_JWT = {
 
 
 
-# Media files
-MEDIA_URL = "/uploads/"
-MEDIA_ROOT = BASE_DIR / "uploads"
-
-
-
 # Cors
 CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS',  cast=Csv())
 
@@ -252,3 +247,24 @@ CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS',  cast=Csv())
 
 # Django Heroku settings.
 django_heroku.settings(locals()) 
+
+
+
+# Media files
+MEDIA_URL = "/uploads/"
+MEDIA_ROOT = BASE_DIR / "uploads"
+    
+    
+""" USE_S3 = config("USE_S3", default=False, cast=bool)
+
+if USE_S3:    
+    AWS_ACCESS_KEY_ID=config("AWS_S3_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY=config("AWS_S3_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME=config("AWS_STORAGE_BUCKET_NAME")
+    AWS_S3_ENDPOINT_URL=config("AWS_S3_HOST")
+    MEDIA_URL=f"{AWS_S3_ENDPOINT_URL}/uploads/"
+    DEFAULT_FILE_STORAGE='storages.backends.s3boto3.S3botoS3storage'
+else:
+    DEFAULT_FILE_STORAGE='django.core.files.storage.FileSystemStorage'
+    MEDIA_URL = "/uploads/"
+    MEDIA_ROOT = BASE_DIR / "uploads" """
