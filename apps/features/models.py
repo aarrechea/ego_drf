@@ -7,10 +7,10 @@ from apps.abstract.models import AbstractModel
 # File will be uploaded to MEDIA_ROOT/features_<id>/<filename>
 def feature_directory_path(instance, filename):
     if instance:
-        return "feature_{0}/{1}".format(instance.id, filename)
+        return "features/feature_{0}/{1}".format(instance.id, filename)
     else:
         feature = Feature.objects.latest('id')    
-        return "feature_{0}/{1}".format(feature.id, filename)
+        return "features/feature_{0}/{1}".format(feature.id, filename)
 
 
 

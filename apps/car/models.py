@@ -45,10 +45,10 @@ LOCATIONS = (
 # File will be uploaded to MEDIA_ROOT/car_<id>/<filename>
 def car_directory_path(instance, filename):
     if instance.id:
-        return "car_{0}/{1}".format(instance.id, filename)
+        return "cars/car_{0}/{1}".format(instance.id, filename)
     else:
         car = Car.objects.latest('id')    
-        return "car_{0}/{1}".format(car.id, filename)
+        return "cars/car_{0}/{1}".format(car.id, filename)
 
 
 

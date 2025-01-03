@@ -245,26 +245,35 @@ CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS',  cast=Csv())
 
 
 
-# Django Heroku settings.
-django_heroku.settings(locals()) 
-
-
-
 # Media files
-MEDIA_URL = "/uploads/"
-MEDIA_ROOT = BASE_DIR / "uploads"
+""" MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media" """
     
     
-""" USE_S3 = config("USE_S3", default=False, cast=bool)
+USE_S3 = config("USE_S3", default=False, cast=bool)
 
 if USE_S3:    
     AWS_ACCESS_KEY_ID=config("AWS_S3_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY=config("AWS_S3_SECRET_ACCESS_KEY")
-    AWS_STORAGE_BUCKET_NAME=config("AWS_STORAGE_BUCKET_NAME")
-    AWS_S3_ENDPOINT_URL=config("AWS_S3_HOST")
-    MEDIA_URL=f"{AWS_S3_ENDPOINT_URL}/uploads/"
-    DEFAULT_FILE_STORAGE='storages.backends.s3boto3.S3botoS3storage'
+    AWS_STORAGE_BUCKET_NAME=config("AWS_STORAGE_BUCKET_NAME")    
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    MEDIA_URL=f"{AWS_S3_CUSTOM_DOMAIN}/media/"        
+    AWS_QUERYSTRING_AUTH = False
+    
+    STORAGES ={
+    "default": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
 else:
     DEFAULT_FILE_STORAGE='django.core.files.storage.FileSystemStorage'
-    MEDIA_URL = "/uploads/"
-    MEDIA_ROOT = BASE_DIR / "uploads" """
+    MEDIA_URL = "/media/"
+    MEDIA_ROOT = BASE_DIR / "media"
+
+
+# Django Heroku settings.
+django_heroku.settings(locals()) 
+
