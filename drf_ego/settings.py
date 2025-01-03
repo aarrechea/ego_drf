@@ -261,19 +261,29 @@ if USE_S3:
     AWS_QUERYSTRING_AUTH = False
     
     STORAGES ={
-    "default": {
-        "BACKEND": "storages.backends.s3.S3Storage",
-    },
-    "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-    },
-}
+        "default": {
+            "BACKEND": "storages.backends.s3.S3Storage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",        
+        },    
+    }
+    
 else:
-    DEFAULT_FILE_STORAGE='django.core.files.storage.FileSystemStorage'
+    STORAGES ={
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",      
+        },    
+    }
     MEDIA_URL = "/media/"
     MEDIA_ROOT = BASE_DIR / "media"
 
 
 # Django Heroku settings.
 django_heroku.settings(locals()) 
+
+
 
