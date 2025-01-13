@@ -12,26 +12,24 @@ class CarSerializer(AbstractSerializer):
     feature = FeatureSerializer(read_only=True, many=True)
     
     
-    def create(self, validated_data):        
+    def create(self, validated_data):                 
         features = self.initial_data['features']
         locations = self.initial_data['locations']
-                        
+        
         listInstances = []        
         array = []
         
-        # Get the feature object from the front end data
-        try:
-            for feature in features:            
-                listInstances.append(Feature.objects.get(id=feature))
-        except:
-            pass
+        # Get the feature object from the front end data.
+        if len(features) > 0:                        
+            for feature in features:                
+                listInstances.append(Feature.objects.get(id=feature))                        
             
         try:            
             with transaction.atomic():                
                 car = Car.objects.create(**validated_data)
-                
+                                                    
                 if len(listInstances) > 0:
-                    for index, item in enumerate(listInstances):
+                    for index, item in enumerate(listInstances):                        
                         car_feature = CarFeature(
                             car = car,
                             feature = item,
@@ -40,7 +38,7 @@ class CarSerializer(AbstractSerializer):
                         array.append(car_feature)
                     
                     CarFeature.objects.bulk_create(array)
-                
+                                                                                                                
             return car
         
         except Exception as e:            

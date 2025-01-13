@@ -110,7 +110,7 @@ if DEBUG:
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'ego_database',
             'USER':'postgres',
-            'PASSWORD':'postgres',
+            'PASSWORD':'admin06',
             'HOST':'127.0.0.1',
             'PORT':'5432'
         }
@@ -252,6 +252,7 @@ MEDIA_ROOT = BASE_DIR / "media" """
     
 USE_S3 = config("USE_S3", default=False, cast=bool)
 
+
 if USE_S3:    
     AWS_ACCESS_KEY_ID=config("AWS_S3_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY=config("AWS_S3_SECRET_ACCESS_KEY")
@@ -269,7 +270,7 @@ if USE_S3:
         },    
     }
     
-else:
+else:    
     STORAGES ={
         "default": {
             "BACKEND": "django.core.files.storage.FileSystemStorage",
@@ -280,6 +281,7 @@ else:
     }
     MEDIA_URL = "/media/"
     MEDIA_ROOT = BASE_DIR / "media"
+
 
 
 # Django Heroku settings.
