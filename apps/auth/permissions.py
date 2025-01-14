@@ -30,8 +30,6 @@ class UserPermission(BasePermission):
                 return False # request.method in SAFE_METHODS            
             return bool(request.user and request.user.is_authenticated)
         
-        print("Enter has permissions")
-        
         return False
             
 

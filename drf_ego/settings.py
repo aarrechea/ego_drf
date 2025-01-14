@@ -52,7 +52,7 @@ THIRD_PARTY_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'drf_spectacular',
-    'storages',
+    'storages',    
 ]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
@@ -251,7 +251,6 @@ MEDIA_ROOT = BASE_DIR / "media" """
     
     
 USE_S3 = config("USE_S3", default=False, cast=bool)
-
 
 if USE_S3:    
     AWS_ACCESS_KEY_ID=config("AWS_S3_ACCESS_KEY_ID")

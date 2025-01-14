@@ -20,35 +20,8 @@ class CarViewSet(AbstractViewSet):
     http_method_names = ['get', 'post', 'put', 'delete', 'patch']
     permission_classes = (AllowAny, )
     serializer_class = CarSerializer
-    
-        
-    """ def get_queryset(self):                        
-        queryset = Car.objects.all()
-        
-        try:
-            param = int(self.request.query_params.get('data'))
+    queryset = Car.objects.all()
             
-            if param is not None:
-                if param == 0:
-                    return queryset
-                
-                if param == 1:                
-                    queryset = queryset.filter(type=param)
-                    return queryset
-                    
-                elif param == 2:
-                    type_one = 2
-                    type_two = 3                                
-                    
-                else:
-                    type_one = 4
-                    type_two = 5
-                            
-                queryset = queryset.filter(Q(type=type_one) | Q(type=type_two))
-                return queryset
-        except:                            
-            return queryset """
-        
         
     # List
     @extend_schema(
