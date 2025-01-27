@@ -5,3 +5,5 @@ class FeaturesConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'apps.features'
     label = 'apps_features'
+    
+    

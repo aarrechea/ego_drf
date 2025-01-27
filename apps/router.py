@@ -3,6 +3,7 @@ from rest_framework import routers
 from apps.auth.viewsets import RegisterViewSet, LoginViewSet, RefreshViewSet
 from apps.car.viewsets import CarViewSet
 from apps.user.viewsets import UserViewSet
+from apps.features.viewsets import FeatureViewSet
 
 
 
@@ -21,6 +22,11 @@ router.register(r'auth/refresh', RefreshViewSet, basename='auth-refresh')
 
 # Car
 router.register(r'car', CarViewSet, basename='car')
+
+
+
+# Feature
+router.register(r'features', FeatureViewSet, basename='features')
 
 
 

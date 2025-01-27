@@ -8,10 +8,11 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from apps.abstract.viewsets import AbstractViewSet
 from apps.auth.permissions import UserPermission
+from apps.car.filters import CarFilter
 from apps.car.models import Car, CarFeature
 from apps.car.serializers import CarSerializer
 from apps.features.models import Feature
-from drf_spectacular.utils import OpenApiParameter, extend_schema
+from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view
 
 
 
@@ -21,27 +22,38 @@ class CarViewSet(AbstractViewSet):
     permission_classes = (AllowAny, )
     serializer_class = CarSerializer
     queryset = Car.objects.all()
-            
-        
-    # List
+    
+    #http://127.0.0.1:8000/api/car/?type__in=1,2
+    """ filterset_fields = {
+        'type': ["in"]
+    } """
+    filterset_class = CarFilter
+    
+    
+    # Get queryset decorated with drf-spectacular
     @extend_schema(
-        parameters=[
-            OpenApiParameter(
-                name="data",
-                description=(
-                    "Type of car:\n"
-                    "   - zero to list all cars.\n"
-                    "   - one to list only autos.\n"
-                    "   - two to list Pickup and Comerciales.\n"
-                    "   - three to list Suvs and Crossovers. "
-                ),
-                type=int,
-            )
-        ]
-    )
-    def list(self, request, *args, **kwargs):
-        queryset = Car.objects.all()
+    parameters=[
+        OpenApiParameter(
+            name="data",
+            description=(
+                "Type of car:\n"
+                "   - zero to list all cars.\n"
+                "   - one to list only autos.\n"
+                "   - two to list Pickup and Comerciales.\n"
+                "   - three to list Suvs and Crossovers. "
+            ),
+            type=int,
+        )
+    ])
+    def get_queryset(self):
+        return super().get_queryset()
+    
+    
         
+    # List            
+    """     queryset = Car.objects.all()                
+        param = int(self.request.query_params.get('data'))
+                
         if self.request.query_params.get('data'):
             param = int(self.request.query_params.get('data'))
             
@@ -60,8 +72,9 @@ class CarViewSet(AbstractViewSet):
                     queryset = queryset.filter(Q(type=type_one) | Q(type=type_two))
             
         serializer = self.serializer_class(queryset, many=True)
-        return Response(serializer.data)
-        
+        return Response(serializer.data) """
+    
+
     
     # Get object
     def get_object(self):
@@ -76,4 +89,9 @@ class CarViewSet(AbstractViewSet):
         serializer.is_valid(raise_exception=True)
         serializer.save()      
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    
+    def destroy(self, request, *args, **kwargs):
+        self.media_file.delete()                
+        return super().destroy(request, *args, **kwargs)
     
